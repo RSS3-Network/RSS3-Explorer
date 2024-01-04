@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import "@mantine/charts/styles.css"
+
 import { Providers } from "@/components/providers"
 
 import "./globals.css"
