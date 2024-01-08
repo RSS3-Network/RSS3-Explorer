@@ -1,9 +1,18 @@
 "use client"
 
-import { Button } from "@mantine/core"
+import { useRouter } from "next/navigation"
+import React from "react"
+
+import { Button, Menu } from "@mantine/core"
 import { ConnectButton as _ConnectButton } from "@rainbow-me/rainbowkit"
 
 export default function ConnectButton() {
+  const router = useRouter()
+  const goToProfiles = React.useCallback(
+    () => router.push("/profiles"),
+    [router],
+  )
+
   return (
     <_ConnectButton.Custom>
       {({
@@ -82,12 +91,21 @@ export default function ConnectButton() {
                     {chain.name}
                   </Button>
 
-                  <Button size="compact-sm" onClick={openAccountModal}>
-                    {account.displayName}
-                    {/* {account.displayBalance
+                  <Menu shadow="md" width={200}>
+                    <Menu.Target>
+                      <Button size="compact-sm">
+                        {account.displayName}
+                        {/* {account.displayBalance
                       ? ` (${account.displayBalance})`
                       : ""} */}
-                  </Button>
+                      </Button>
+                    </Menu.Target>
+
+                    <Menu.Dropdown>
+                      <Menu.Item onClick={openAccountModal}>Account</Menu.Item>
+                      <Menu.Item onClick={goToProfiles}>Profiles</Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
                 </div>
               )
             })()}
